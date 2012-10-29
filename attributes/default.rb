@@ -33,6 +33,7 @@ default["chef_client"]["validation_client_name"] = "chef-validator"
 default["chef_client"]["cron"] = { "minute" => "0", "hour" => "*/4", "path" => nil}
 default["chef_client"]["environment"] = nil
 default["chef_client"]["load_gems"] = {}
+default["chef_client"]["path"] = ""
 
 case platform
 when "arch"
@@ -69,6 +70,7 @@ when "openindiana","opensolaris","nexentacore","solaris2"
   default["chef_client"]["backup_path"] = "/var/chef/backup"
   default["chef_client"]["method_dir"] = "/lib/svc/method"
   default["chef_client"]["bin_dir"] = "/usr/bin"
+  default["chef_client"]["path"] = "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 when "smartos"
   default["chef_client"]["init_style"]  = "smf"
   default["chef_client"]["run_path"]    = "/var/run/chef"
@@ -76,6 +78,7 @@ when "smartos"
   default["chef_client"]["backup_path"] = "/var/chef/backup"
   default["chef_client"]["method_dir"] = "/opt/local/lib/svc/method"
   default["chef_client"]["bin_dir"] = "/opt/local/bin"
+  default["chef_client"]["path"] = "/opt/local/sbin:/opt/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 when "windows"
   default["chef_client"]["init_style"]  = "winsw"
   default["chef_client"]["conf_dir"]    = "C:/chef"
