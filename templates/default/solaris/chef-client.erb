@@ -45,7 +45,7 @@ CONFIG=<%= node["chef_client"]["conf_dir"] %>/client.rb
 INTERVAL=<%= node["chef_client"]["interval"] %>
 SPLAY=<%= node["chef_client"]["splay"] %>
 
-DAEMON_OPTS="-d -P $PIDFILE -L $LOGFILE -c $CONFIG -i $INTERVAL -s $SPLAY <%= node["chef_client"]["daemon_options"].join(' ') %>"
+DAEMON_OPTS="-d --fork -P $PIDFILE -L $LOGFILE -c $CONFIG -i $INTERVAL -s $SPLAY <%= node["chef_client"]["daemon_options"].join(' ') %>"
 
 if [ ! -d <%= node["chef_client"]["run_path"] %> ]; then
   mkdir <%= node["chef_client"]["run_path"] %>
