@@ -165,6 +165,7 @@ The alternate init styles available are:
 * runit
 * bluepill
 * daemontools
+* smf
 * none -- should be specified if you are running chef-client as cron job
 
 For usage, see below.
@@ -238,6 +239,24 @@ Change the `init_style` to runit in the base role and add the daemontools recipe
 
 The `chef-client` recipe will create the chef-client service configured under daemontools. It uses the same sv run scripts as the runit recipe. The run script will be located in `/etc/sv/chef-client/run`. The output log will be in the daemontools service directory, `/etc/sv/chef-client/log/main/current`.
 
+# SMF
+
+Solaris and Illumos distributions use SMF, or Service Management Facility. This should be automatically configured based
+on the detected platform, but if not, `init_style` can be changed in the base role:
+
+    name "base"
+    description "Base role applied to all nodes"
+    override_attributes(
+      "chef_client" => {
+        "init_style" => "smf"
+      }
+    )
+    run_list(
+      "recipe[chef-client::delete_validation]",
+      "recipe[chef-client]"
+    )
+
+
 # Launchd
 
 On Mac OS X and Mac OS X Server, the default service implementation is "launchd". Launchd support for the service resource is only supported from Chef 0.10.10 onwards.
@@ -287,3 +306,4 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
+
