@@ -53,7 +53,7 @@ fi
 
 case "$1" in
 'start')
-$DAEMON $DAEMON_OPTS
+auditconfig -setaudit 0 lo 0,0,localhost 6437 $DAEMON $DAEMON_OPTS
 ;;
 
 *)
